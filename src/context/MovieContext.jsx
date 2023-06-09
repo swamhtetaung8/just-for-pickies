@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 import {
   getAction,
   getAnimation,
@@ -37,6 +37,8 @@ const MovieContextProvider = ({ children }) => {
     queryFn: getComedy,
   });
 
+  const [selected,setSelected] = useState();
+
   const data = {
     actionImage:
       actionData?.results[Math.floor(Math.random() * 20)].backdrop_path,
@@ -50,6 +52,8 @@ const MovieContextProvider = ({ children }) => {
       scienceFictionData?.results[Math.floor(Math.random() * 20)].backdrop_path,
     dramaImage:
       dramaData?.results[Math.floor(Math.random() * 20)].backdrop_path,
+      selected,
+      setSelected
   };
 
   return <MovieContext.Provider value={data}>{children}</MovieContext.Provider>;

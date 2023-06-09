@@ -30,3 +30,11 @@ export const getScienceFiction = async () => {
   const data = await api.json();
   return data;
 };
+export const getGenerate = async (genreId) => {
+  const api = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${
+    import.meta.env.VITE_API_KEY
+  }&with_genres=${genreId}`);
+  const data = await api.json();
+  return data;
+};
+

@@ -1,15 +1,16 @@
 import React from "react";
+import { Link } from "react-scroll";
 
 const Hero = () => {
   return (
     <div>
       <section>
-        <div className="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
-          <div className="mx-auto max-w-xl text-center">
+        <div className="max-w-screen-xl px-4 py-32 mx-auto lg:flex lg:h-screen lg:items-center">
+          <div className="max-w-xl mx-auto text-center">
             <h2 className="text-3xl font-extrabold sm:text-5xl">
               Unlock Movie Magic
             </h2>
-            <h1 className="text-3xl font-extrabold sm:text-5xl text-red-700 sm:block">
+            <h1 className="text-3xl font-extrabold text-red-700 sm:text-5xl sm:block">
               Discover Endless Surprises for Picky Viewers!
             </h1>
 
@@ -17,12 +18,12 @@ const Hero = () => {
               Developed by a couple from Myanmar.
             </p>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <button className="block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+              <Link to="get_started" smooth={500} className="block w-full px-12 py-3 text-sm font-medium text-white bg-red-600 rounded shadow cursor-pointer hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
                 Get Started
-              </button>
+              </Link>
 
-              <button className="block w-full rounded px-12 py-3 text-sm font-medium text-red-600 shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto">
+              <button className="block w-full px-12 py-3 text-sm font-medium text-red-600 rounded shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto">
                 Learn More
               </button>
             </div>
