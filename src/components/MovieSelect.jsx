@@ -60,7 +60,9 @@ const MovieSelect = () => {
     const { results } = await getGenerate(genreId);
     setSelected(results[Math.floor(Math.random() * results.length)]);
 
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
   };
 
   const handleTrailer = async (movieId) => {
