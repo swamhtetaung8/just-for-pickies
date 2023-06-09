@@ -105,7 +105,7 @@ const MovieSelect = () => {
                 </div>
                 <button
                   onClick={() => handleGenerate(genre.genreId)}
-                  className="block w-full px-12 py-3 mt-20 text-sm font-medium text-white bg-red-600 rounded shadow lg:mt-28 hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
+                  className="block w-full px-12 py-3 mt-16 text-sm font-medium text-white bg-red-600 rounded shadow lg:mt-28 hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
                   Generate
                 </button>
               </div>
