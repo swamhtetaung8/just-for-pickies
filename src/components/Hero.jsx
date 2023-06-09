@@ -19,13 +19,12 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mt-8">
-              <Link to="get_started" smooth={500} className="block w-full px-12 py-3 text-sm font-medium text-white bg-red-600 rounded shadow cursor-pointer hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
+              <Link
+                to="get_started"
+                smooth={500}
+                className="block w-full px-12 py-3 text-sm font-medium text-white bg-red-600 rounded shadow cursor-pointer hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
                 Get Started
               </Link>
-
-              <button className="block w-full px-12 py-3 text-sm font-medium text-red-600 rounded shadow hover:text-red-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto">
-                Learn More
-              </button>
             </div>
           </div>
         </div>

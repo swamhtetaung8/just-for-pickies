@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useCustomMovieContext } from "../context/MovieContext";
-import { useDisclosure } from '@mantine/hooks';
-import { Modal, useMantineTheme } from '@mantine/core';
-import { getGenerate } from "../services/api";
+import { useDisclosure } from "@mantine/hooks";
+import { Loader, Modal, useMantineTheme } from "@mantine/core";
+import { getDetail, getGenerate, getVideo } from "../services/api";
 import { useQuery } from "@tanstack/react-query";
 
 const MovieSelect = () => {
-
   const [opened, { open, close }] = useDisclosure(false);
-  const [modalLoading,setModalLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const theme = useMantineTheme();
   const {
     actionImage,
@@ -18,7 +17,9 @@ const MovieSelect = () => {
     scienceFictionImage,
     horrorImage,
     selected,
-    setSelected
+    setSelected,
+    selectedVideo,
+    setSelectedVideo,
   } = useCustomMovieContext();
   const genres = [
     {
@@ -53,14 +54,21 @@ const MovieSelect = () => {
     },
   ];
 
-  const handleGenerate = async(genreId)=>{
+  const handleGenerate = async (genreId) => {
     open();
-    setModalLoading(true)
-    const {results} = await getGenerate(genreId);
-    setSelected(results[Math.floor(Math.random() * results.length)])
-    console.log(selected)
-    setModalLoading(false);
-  }
+    setIsLoading(true);
+    const { results } = await getGenerate(genreId);
+    setSelected(results[Math.floor(Math.random() * results.length)]);
+
+    setIsLoading(false);
+  };
+
+  const handleTrailer = async (movieId) => {
+    const data = await getVideo(movieId);
+    window.location = `https://www.youtube.com/watch?v=${data.results[0]?.key}`;
+  };
+
+  console.log(selectedVideo);
 
   return (
     <section name="get_started" className="bg-gray-100">
@@ -95,7 +103,9 @@ const MovieSelect = () => {
                     {genre.name}
                   </h3>
                 </div>
-                <button onClick={()=>handleGenerate(genre.genreId)} className="block w-full px-12 py-3 text-sm font-medium text-white bg-red-600 rounded shadow mt-28 hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
+                <button
+                  onClick={() => handleGenerate(genre.genreId)}
+                  className="block w-full px-12 py-3 mt-20 text-sm font-medium text-white bg-red-600 rounded shadow lg:mt-28 hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto">
                   Generate
                 </button>
               </div>
@@ -103,21 +113,36 @@ const MovieSelect = () => {
           ))}
         </div>
       </div>
-      <Modal
-        opened={opened}
-        onClose={close}
-        title="Authentication"
-        overlayProps={{
-          color: theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2],
-          opacity: 0.55,
-          blur: 3,
-        }}
-      >
-        {modalLoading ? (<div>Loading</div>):(<div>
-        <h1>{selected?.original_title}</h1>
-        <img src={`https://image.tmdb.org/t/p/original${selected?.backdrop_path}`} alt="" />
-        </div>)}
-        
+      <Modal opened={opened} fullScreen onClose={close} withCloseButton={true}>
+        {isLoading ? (
+          <div className="flex items-center justify-center w-full h-screen">
+            <Loader size="xl" variant="dots" />
+          </div>
+        ) : (
+          <div className="flex flex-col justify-between gap-10 lg:flex-row">
+            <img
+              src={`https://image.tmdb.org/t/p/original${selected?.poster_path}`}
+              alt=""
+              className="lg:w-[50%] w-full object-contain max-h-[60vh]"
+            />
+            <div className="flex flex-col space-y-5 ">
+              <h1 className="text-3xl font-extrabold text-red-700 sm:text-5xl sm:block">
+                {selected?.title}
+              </h1>
+              <h3 className="text-xl font-light text-gray-800">
+                {selected?.release_date}
+              </h3>
+              <p>{selected?.overview}</p>
+
+              <button
+                className="self-start px-12 py-3 text-sm font-medium text-white bg-red-600 rounded shadow mt-28 hover:bg-red-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
+                onClick={() => handleTrailer(selected?.id)}>
+                {" "}
+                Watch Trailer
+              </button>
+            </div>
+          </div>
+        )}
       </Modal>
     </section>
   );

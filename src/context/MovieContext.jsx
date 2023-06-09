@@ -37,23 +37,36 @@ const MovieContextProvider = ({ children }) => {
     queryFn: getComedy,
   });
 
-  const [selected,setSelected] = useState();
+  const [selected, setSelected] = useState();
+  const [selectedDetail, setSelectedDetail] = useState();
+  const [selectedVideo, setSelectedVideo] = useState();
 
   const data = {
     actionImage:
+      actionData?.results[Math.floor(Math.random() * 20)].backdrop_path ??
       actionData?.results[Math.floor(Math.random() * 20)].backdrop_path,
     animationImage:
+      animationData?.results[Math.floor(Math.random() * 20)].backdrop_path ??
       animationData?.results[Math.floor(Math.random() * 20)].backdrop_path,
     comedyImage:
+      comedyData?.results[Math.floor(Math.random() * 20)].backdrop_path ??
       comedyData?.results[Math.floor(Math.random() * 20)].backdrop_path,
     horrorImage:
+      horrorData?.results[Math.floor(Math.random() * 20)].backdrop_path ??
       horrorData?.results[Math.floor(Math.random() * 20)].backdrop_path,
     scienceFictionImage:
+      scienceFictionData?.results[Math.floor(Math.random() * 20)]
+        .backdrop_path ??
       scienceFictionData?.results[Math.floor(Math.random() * 20)].backdrop_path,
     dramaImage:
+      dramaData?.results[Math.floor(Math.random() * 20)].backdrop_path ??
       dramaData?.results[Math.floor(Math.random() * 20)].backdrop_path,
-      selected,
-      setSelected
+    selected,
+    setSelected,
+    selectedDetail,
+    setSelectedDetail,
+    selectedVideo,
+    setSelectedVideo,
   };
 
   return <MovieContext.Provider value={data}>{children}</MovieContext.Provider>;
